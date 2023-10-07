@@ -12,7 +12,7 @@ class PageNotFound extends React.Component{
     render(){
         return(
             <div className="flex p-4 h-screen font-bold w-7xl justify-center m-auto items-center duration-500 text-5xl">
-                <h4>Pages not found 404</h4>
+                <h4>Pages not found {this.state.items[0].text}</h4>
             </div>
         );
     }
