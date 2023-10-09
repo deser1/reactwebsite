@@ -3,6 +3,7 @@ import Navbar from './component/navbar/Navbar';
 import Home from './component/pages/home/Home';
 import Portfolio from './component/pages/portfolio/Portfolio';
 import PageNotFound from './component/pages/404/404';
+import Footer from './component/pages/footer/Footer';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
           </Routes>
         </Router>
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
