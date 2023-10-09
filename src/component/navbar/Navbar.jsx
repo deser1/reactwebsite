@@ -21,8 +21,8 @@ class Navbar extends React.Component{
     doClickHref(text, index){
         return text;
     }
-    handleNav = () =>{
-        return this.state.setNav(!this.state.nav);
+    handleNav = (e) =>{
+        return this.setState({setNav : e });/** alert(e); */
     }
     render(){
         return (
@@ -30,7 +30,7 @@ class Navbar extends React.Component{
                 <nav id="navbar">
                     <div className="relative justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white">
                         <ul className="md:flex hidden bg-slate-400">
-                            <li><a href="/"><img className="w-12 h-12" src={logo} alt="logo"/></a></li>
+                            <li className="justify-center"><a href="/"><img className="w-12 h-12" src={logo} alt="logo"/></a></li>
                             {this.state.links.map((item, index) =>(
                             
                             <li key={item.text} onClick={ () => this.doClickHref(item.text)} className="p-4 hover:bg-slate-500">
@@ -40,7 +40,7 @@ class Navbar extends React.Component{
                             ))}
                             
                         </ul>
-                        <div onClick={ () => this.handleNav} className="block md:hidden">
+                        <div onClick={ () => this.handleNav(!this.state.nav)} className="block md:hidden sm:visible">
                             {!this.state.nav ? (<AiOutlineClose /> === null ? <AiOutlineClose size={20} /> : <img className="w-12 h-12 flex"src={OutlineMenuCloseSolid} alt="OutlineMenuCloseSolid" />) : (<AiOutlineMenu /> === null ? <AiOutlineMenu size={20}/> : <img className="w-12 h-12 flex"src={OutlineMenuBarSolid} alt="OutlineMenuBarSolid" />)}
                         </div>
                         <div className={!this.state.nav ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-slate-400' : 'fixed left-[-100%] ease-in-out duration-500'}>
