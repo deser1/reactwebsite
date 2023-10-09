@@ -13,9 +13,9 @@ class Footer extends React.Component {
     }
     render(){
         return(
-            <div id="footer">
+            <nav id="footer">
                 Footer content
-            </div>
+            </nav>
         )
     }
 }
