@@ -1,29 +1,23 @@
-import './App.css';
-import Navbar from './component/navbar/Navbar';
-import Home from './component/pages/home/Home';
-import Portfolio from './component/pages/portfolio/Portfolio';
-import PageNotFound from './component/pages/404/404';
-import Footer from './component/pages/footer/Footer';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./component/navbar/Navbar";
+import Home from "./component/pages/home/Home";
+import Portfolio from "./component/pages/portfolio/Portfolio";
+import PageNotFound from "./component/pages/404/404";
+import Footer from "./component/pages/footer/Footer";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <header>
+      <BrowserRouter>
         <Navbar />
-      </header>
-      <main>
-        <Router>
-          <Routes>
-            <Route path='/' Component={Home} />
-            <Route path='/portfolio' Component={Portfolio} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Router>
-      </main>
-      <footer>
+        <Routes>
+          <Route path="/"  element={<Home />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
         <Footer />
-      </footer>
+      </BrowserRouter>
     </div>
   );
 }
