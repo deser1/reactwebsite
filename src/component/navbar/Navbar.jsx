@@ -22,7 +22,7 @@ class Navbar extends React.Component{
         return text;
     }
     handleNav = (e) =>{
-        return this.setState({setNav : e });/** alert(e); */
+            return this.setState({setNav : e });/** alert(e); */
     }
     render(){
         return (
@@ -40,8 +40,9 @@ class Navbar extends React.Component{
                             ))}
                             
                         </ul>
-                        <div onClick={ () => this.handleNav(!this.state.nav)} className="block md:hidden sm:visible">
+                        <div onClick={ () => this.handleNav(!this.state.nav)} className="sm:block md:hidden sm:visible">
                             {!this.state.nav ? (<AiOutlineClose /> === null ? <AiOutlineClose size={20} /> : <img className="w-12 h-12 flex"src={OutlineMenuCloseSolid} alt="OutlineMenuCloseSolid" />) : (<AiOutlineMenu /> === null ? <AiOutlineMenu size={20}/> : <img className="w-12 h-12 flex"src={OutlineMenuBarSolid} alt="OutlineMenuBarSolid" />)}
+                        {console.log("setNav", this.state.setNav)}
                         </div>
                         <div className={!this.state.nav ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-slate-400' : 'fixed left-[-100%] ease-in-out duration-500'}>
                             <ul className="pt-24 uppercase bg-slate-400">

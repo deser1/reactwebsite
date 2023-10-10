@@ -1,6 +1,9 @@
 # Project name
 
-React website
+React website application with portfolio test app 
+
+## Code review
+NavBar responsive actually coding
 
 # Getting Started with Create React App
 
