@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {AiOutlineClose} from "react-icons/ai";
+import {AiOutlineClose, AiOutlineMenu} from "react-icons/ai";
 import {Link} from "react-router-dom";
 
 import OutlineMenuCloseSolid from "./../../OutlineMenuCloseSolid.png";
@@ -30,7 +30,7 @@ const Navbar = () => {
           </li>
           {links.map(({text, href}) => (
             <li className="p-4 border-b border-gray-600 hover:bg-slate-500">
-              <Link to={href} className="p-4 hover:bg-slate-500">
+              <Link to={href} className="p-4 hover:bg-slate-500 font-bold">
                 {text}
               </Link>
             </li>
@@ -38,13 +38,9 @@ const Navbar = () => {
         </ul>
         <div onClick={() => setNav((prev) => !prev)}>
           {hasNotNav ? (
-            <AiOutlineClose color="black" />
+            <AiOutlineClose color="black" size="50"/>
           ) : (
-            <img
-              className="w-24 h-24 flex content-center object-center"
-              src={OutlineMenuCloseSolid}
-              alt="OutlineMenuCloseSolid"
-            />
+            <AiOutlineMenu color="black" size="50"/>
           )}
         </div>
         <div className={boxClassName}>
@@ -59,11 +55,7 @@ const Navbar = () => {
               </a>
             </li>
             {links.map(({text, href}) => (
-              <li
-                key={text}
-                onClick={() => this.doClickHref(text)}
-                className="p-4 border-b border-gray-600 hover:bg-slate-500"
-              >
+              <li className="p-4 border-b border-gray-600 hover:bg-slate-500">
                 <Link className="hover:text-white font-bold h-20" to={href}>
                   {text}
                 </Link>
