@@ -2,7 +2,6 @@ import {useState} from "react";
 import {AiOutlineClose, AiOutlineMenu} from "react-icons/ai";
 import {Link} from "react-router-dom";
 
-import OutlineMenuCloseSolid from "./../../OutlineMenuCloseSolid.png";
 import logo from "./../../logo_200x200.png";
 
 const Navbar = () => {
