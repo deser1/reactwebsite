@@ -1,0 +1,144 @@
+const db = require("../models");
+const Projects = db.projects;
+const Op = db.Sequelize.Op;
+
+// Create and Save a new Project
+exports.create = (req, res) => {
+    // Validating the request
+    if (!req.body.title) {
+        res.status(400).send ({
+            message: "Content can be placed here!"
+        });
+        return;
+    }
+    Projects = {
+        title: req.body.title,
+        description: req.body.description,
+        color: req.body.color,
+        icon_name: req.body.icon_name
+        };
+    // Save Projects in the database
+    Projects.create(Projects)
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while creating the projects."
+        });
+    });
+};
+
+// Retrieve all Projects from the database.
+exports.findAll = (req, res) => {
+    const title = req.query.title;
+  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
+  Projects.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving projects."
+      });
+    });
+};
+
+// Find a single Project with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+  Projects.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving projects with id=" + id
+      });
+    });
+};
+
+// Update a Project by the id in the request
+exports.update = (req, res) => {
+    const id = req.params.id;
+
+  Projects.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Projects was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update projects with id=${id}. Maybe projects was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating projects with id=" + id
+      });
+    });
+};
+
+// Delete a Project with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+  Projects.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Projects was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete projects with id=${id}. Maybe projects was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete projects with id=" + id
+      });
+    });
+};
+
+// Delete all Projects from the database.
+exports.deleteAll = (req, res) => {
+    Projects.destroy({
+        where: {},
+        truncate: false
+      })
+        .then(nums => {
+          res.send({ message: `${nums} Projects were deleted successfully!` });
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while removing all projects."
+          });
+        });
+};
+
+// Find all published Projects
+exports.findAllPublished = (req, res) => {
+    Projects.findAll({ where: { published: true } })
+
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+            message: err.message || "Some error occurred while retrieving projects."
+        });
+
+    });
+};
