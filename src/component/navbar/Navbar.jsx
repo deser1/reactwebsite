@@ -35,7 +35,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <div onClick={() => setNav((prev) => !prev)}>
+        <div className="absolute" onClick={() => setNav((prev) => !prev)}>
           {hasNotNav ? (
             <AiOutlineClose color="black" size="50"/>
           ) : (
