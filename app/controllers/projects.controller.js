@@ -34,6 +34,7 @@ const createProjects = (req, res) => {
 const findAll = (req, res) => {
 
     const title = req.query.title; //?query=title
+    console.log(title);
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
     console.log(JSON.stringify(condition)); //return null ??
     

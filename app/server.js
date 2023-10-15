@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require("../app/models");
 const projects = require("../app/routes/projects.routes.js");
-db.sequelizeConnect.sync({force:true});
+db.sequelizeConnect.sync();//{force:true}
 let corsOptions = {
     origin: "http://localhost:8081"
 };
