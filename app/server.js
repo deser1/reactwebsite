@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require("../app/models");
 const projects = require("../app/routes/projects.routes.js");
-db.sequelizeConnect.sync();
+db.sequelizeConnect.sync({force:true});
 let corsOptions = {
     origin: "http://localhost:8081"
 };
@@ -13,11 +13,13 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+app.use('/api/projects',projects)
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
 //Route to get all project created
 /*app.get('/api/project/get',(req,res) =>{
     db.query("SELECT * FROM project",(err,result)=>{

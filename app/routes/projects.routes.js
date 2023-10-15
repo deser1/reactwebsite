@@ -1,12 +1,11 @@
-module.exports = function() {
     const projects = require("../controllers/projects.controller.js");
     const express = require('express');
     const app =  express();
     
-    let router = require("express").Router();
+    const router = express.Router();
     
     // Creating a new Tutorial
-    router.post("/", projects.create);
+    router.post("/", projects.createProjects);
     
     // Retrieving all the projects
     router.get("/", projects.findAll);
@@ -18,13 +17,14 @@ module.exports = function() {
     router.get("/:id", projects.findOne);
     
     // Updating a Tutorial with ID
-    router.put("/:id", projects.update);
+    router.put("/:id", projects.updateProjects);
     
     // Deleting a Tutorial with ID
-    router.delete("/:id", projects.delete);
+    router.delete("/:id", projects.deleteProjects);
     
     // Creating a new Tutorial
     router.delete("/", projects.deleteAll);
     
-    app.use('/api/projects', router);
-    };
+    //app.use('/api/projects', router);
+    
+    module.exports = router;

@@ -1,9 +1,10 @@
+//import { Op } from '@sequelize/core';
 const db = require("../models");
 const Projects = db.projects;
-const Op = db.Sequelize.Op;
-
+//const Op = db.Sequelize.Op;
+const { Op } = require("sequelize");
 // Create and Save a new Project
-exports.create = (req, res) => {
+const createProjects = (req, res) => {
     // Validating the request
     if (!req.body.title) {
         res.status(400).send ({
@@ -30,24 +31,28 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Projects from the database.
-exports.findAll = (req, res) => {
-    const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+const findAll = (req, res) => {
 
-  Projects.findAll({ where: condition })
+    const {title} = req.query.title;
+    let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    console.log(JSON.stringify(condition));
+    
+    Projects.findAll({ 
+        attributes: ["id", "title", "description", "color", "icon_name", "active"],
+        where: condition 
+    })
     .then(data => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving projects."
+        message: err.message+" test1" || "Some error occurred while retrieving projects."
       });
     });
 };
 
 // Find a single Project with an id
-exports.findOne = (req, res) => {
+const findOne = (req, res) => {
     const id = req.params.id;
 
   Projects.findByPk(id)
@@ -62,7 +67,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Project by the id in the request
-exports.update = (req, res) => {
+const updateProjects = (req, res) => {
     const id = req.params.id;
 
   Projects.update(req.body, {
@@ -87,7 +92,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a Project with the specified id in the request
-exports.delete = (req, res) => {
+const deleteProjects = (req, res) => {
     const id = req.params.id;
 
   Projects.destroy({
@@ -112,7 +117,7 @@ exports.delete = (req, res) => {
 };
 
 // Delete all Projects from the database.
-exports.deleteAll = (req, res) => {
+const deleteAll = (req, res) => {
     Projects.destroy({
         where: {},
         truncate: false
@@ -129,7 +134,7 @@ exports.deleteAll = (req, res) => {
 };
 
 // Find all published Projects
-exports.findAllPublished = (req, res) => {
+const findAllPublished = (req, res) => {
     Projects.findAll({ where: { published: true } })
 
         .then(data => {
@@ -142,3 +147,12 @@ exports.findAllPublished = (req, res) => {
 
     });
 };
+module.exports = {
+    createProjects,
+    findAll,
+    findOne,
+    updateProjects,
+    deleteProjects,
+    deleteAll,
+    findAllPublished
+}
