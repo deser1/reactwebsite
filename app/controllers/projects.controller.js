@@ -33,10 +33,10 @@ const createProjects = (req, res) => {
 // Retrieve all Projects from the database.
 const findAll = (req, res) => {
 
-    const title = req.query.title; //?query=title
+    const title = req.query.title; //?title=
     console.log(title);
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-    console.log(JSON.stringify(condition)); //return null ??
+    console.log(JSON.stringify(condition)); //return null is ?title=
     
     Projects.findAll({ 
         attributes: ["id", "title", "description", "color", "icon_name", "active"],
