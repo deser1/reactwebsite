@@ -16,7 +16,8 @@ const createProjects = (req, res) => {
         title: req.body.title,
         description: req.body.description,
         color: req.body.color,
-        icon_name: req.body.icon_name
+        icon_name: req.body.icon_name,
+        active: req.body.active
         };
     // Save Projects in the database
     Projects.create(Projects)
