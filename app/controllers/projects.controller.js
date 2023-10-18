@@ -12,15 +12,15 @@ const createProjects = (req, res) => {
         });
         return;
     }
-    Projects = {
+    let Project = {
         title: req.body.title,
         description: req.body.description,
         color: req.body.color,
-        icon_name: req.body.icon_name,
+        icon_name: req.body.iconname,
         active: req.body.active
         };
     // Save Projects in the database
-    Projects.create(Projects)
+    Projects.create(Project)
     .then(data => {
         res.send(data);
     })
@@ -31,17 +31,17 @@ const createProjects = (req, res) => {
     });
 };
 
-// Retrieve all Projects from the database.
+// Retrieve all Projects from the database. GET REST
 const findAll = (req, res) => {
 
-    const title = req.query.title; //?title=
-    console.log(title);
+    /*const title = req.query.title; //?title= or req.body.title
+    console.log(title); //return test data in params
     let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-    console.log(JSON.stringify(condition)); //return null is ?title=
+    console.log(JSON.stringify(condition)); //return null is ?title=*/
     
     Projects.findAll({ 
         attributes: ["id", "title", "description", "color", "icon_name", "active"],
-        where: condition 
+        //where: condition 
     })
     .then(data => {
       res.status(200).send(data);
@@ -57,7 +57,7 @@ const findAll = (req, res) => {
 const findOne = (req, res) => {
     const id = req.params.id;
 
-  Projects.findByPk(id)
+  Projects.findByPk(id, { attributes: ["id"],})
     .then(data => {
       res.send(data);
     })
