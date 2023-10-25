@@ -6,6 +6,7 @@ const { Op } = require("sequelize");
 // Create and Save a new Project
 const createProjects = (req, res) => {
     // Validating the request
+    console.log('request =' + JSON.stringify(req.body));
     if (!req.body.title) {
         res.status(400).send ({
             message: "Content can be placed here!"
